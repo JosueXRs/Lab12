@@ -81,7 +81,5 @@ public class Pet {
 		return "Pet [id=" + id + ", name=" + name + ", typeId=" + typeId + ", ownerId=" + ownerId + ", birth_date="
 				+ birth_date + "]";
 	}
-
-
-
+	
 }
