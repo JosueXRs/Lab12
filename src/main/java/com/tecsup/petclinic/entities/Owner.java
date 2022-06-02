@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 /**
  * 
- * @author victor
+ * @author jhosep
  *
  */
 

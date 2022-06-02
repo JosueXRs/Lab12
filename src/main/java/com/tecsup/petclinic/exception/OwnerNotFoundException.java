@@ -2,7 +2,7 @@ package com.tecsup.petclinic.exception;
 
 /**
  * 
- * @author victors
+ * @author jhosep
  *
  */
 
