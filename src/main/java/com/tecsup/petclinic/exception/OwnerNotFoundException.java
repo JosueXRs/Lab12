@@ -16,7 +16,5 @@ public class OwnerNotFoundException extends Exception {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
 }
+
