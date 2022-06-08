@@ -11,9 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,18 +24,20 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import com.tecsup.petclinic.dto.PetDTO;
+import com.tecsup.petclinic.dto.OwnerDTO;
+
 /**
- * 
+ *
  * vanessa
  * 
  */
+
 @AutoConfigureMockMvc
 @SpringBootTest
-public class PetControllerTest {
+public class OwnerControllerTest {
 
 	private static final Logger logger 
-			= LoggerFactory.getLogger(PetControllerTest.class);
+			= LoggerFactory.getLogger(OwnerControllerTest.class);
 
     private static final ObjectMapper om = new ObjectMapper();
     
@@ -46,13 +45,13 @@ public class PetControllerTest {
 	private MockMvc mockMvc;
 	
 	@Test
-	public void testGetPets() throws Exception {
+	public void testGetOwners() throws Exception {
 
 		//int SIZE = 216;
 		int ID_FIRST = 1;
 		//int ID_LAST = 332;  
 
-		this.mockMvc.perform(get("/pets"))
+		this.mockMvc.perform(get("/owners"))
 					.andExpect(status().isOk()) // HTTP 200
 					.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 								    // ACTUAL      EXPECTED 
@@ -68,13 +67,12 @@ public class PetControllerTest {
 	 * 
 	 */
 	@Test
-	public void testFindPetOK() throws Exception {
+	public void testFindOwnerOK() throws Exception {
 
 		int ID_SEARCH = 1;
-		String NAME_PET = "Leo";
-		int TYPE_ID = 1;
-		int OWNER_ID = 1;
-		String DATE_REF = "2000-09-07";
+		String FNAME_OWNER = "George";
+		String LNAME_OWNER = "Franklin";
+		String TELEPHONE = "6085551023";
 
 		/*
 		 {
@@ -86,16 +84,14 @@ public class PetControllerTest {
 		}
 		 */
 		
-		mockMvc.perform(get("/pets/" + ID_SEARCH))  // Finding object with ID = 1
+		mockMvc.perform(get("/owners/" + ID_SEARCH))  // Finding object with ID = 1
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				//.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(1)))
-				.andExpect(jsonPath("$.name", is(NAME_PET)))
-				.andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-				.andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
-				.andExpect(jsonPath("$.birthDate", is(DATE_REF)));
-
+				.andExpect(jsonPath("$.firstName", is(FNAME_OWNER)))
+				.andExpect(jsonPath("$.lastName", is(LNAME_OWNER)))
+				.andExpect(jsonPath("$.telephone", is(TELEPHONE)));
 	}
 
 	/**
@@ -103,12 +99,12 @@ public class PetControllerTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testFindPetKO() throws Exception {
+	public void testFindOwnerKO() throws Exception {
 
 		int ID_SEARCH = 666;
 
 		
-		mockMvc.perform(get("/pets/" + ID_SEARCH)) // Finding object with ID = 666
+		mockMvc.perform(get("/owners/" + ID_SEARCH)) // Finding object with ID = 666
 				.andExpect(status().isNotFound());
 
 	}
@@ -118,29 +114,25 @@ public class PetControllerTest {
 	 */
 	
 	@Test
-    public void testCreatePet() throws Exception {
+    public void testCreateOwner() throws Exception {
 		
-    	String NAME_PET = "BeethovenY";
-		int TYPE_ID = 1;
-		int OWNER_ID = 1;
-		String DATE_REF = "2021-10-03";
-		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse(DATE_REF);
-		
-		PetDTO newPet = new PetDTO(NAME_PET, TYPE_ID, OWNER_ID, DATE);
+    	String FNAME_OWNER = "BettyX";
+		String LNAME_OWNER = "DavisX";
+		String TELEPHONE = "6085551749";
+
+		OwnerDTO newOwner = new OwnerDTO(FNAME_OWNER, LNAME_OWNER, TELEPHONE);
 	    
-		logger.info(newPet.toString());
-		logger.info(om.writeValueAsString(newPet));
+		logger.info(newOwner.toString());
+		logger.info(om.writeValueAsString(newOwner));
 	    
-	    mockMvc.perform(post("/pets")
-	            .content(om.writeValueAsString(newPet))
+	    mockMvc.perform(post("/owners")
+	            .content(om.writeValueAsString(newOwner))
 	            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 	            .andDo(print())
 	            .andExpect(status().isCreated())
-	            .andExpect(jsonPath("$.name", is(NAME_PET)))
-	            .andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-	            .andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
-	    		.andExpect(jsonPath("$.birthDate", is(DATE_REF)));
-    
+	            .andExpect(jsonPath("$.firstName", is(FNAME_OWNER)))
+	            .andExpect(jsonPath("$.lastName", is(LNAME_OWNER)))
+	            .andExpect(jsonPath("$.telephone", is(TELEPHONE)));
 	}
     
 
@@ -149,18 +141,16 @@ public class PetControllerTest {
      * @throws Exception
      */
     @Test
-    public void testDeletePet() throws Exception {
+    public void testDeleteOwner() throws Exception {
 
-    	String NAME_PET = "Beethoven3";
-		int TYPE_ID = 1;
-		int OWNER_ID = 1;
-		String DATE_REF = "2021-10-03";
-		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse(DATE_REF);
+    	String FNAME_OWNER = "Eduardo";
+    	String LNAME_OWNER = "Rodriquez";
+    	String TELEPHONE = "6085558763";
 		
-		PetDTO newPet = new PetDTO(NAME_PET, TYPE_ID, OWNER_ID, DATE);
+		OwnerDTO newOwner = new OwnerDTO(FNAME_OWNER, LNAME_OWNER, TELEPHONE);
 		
-		ResultActions mvcActions = mockMvc.perform(post("/pets")
-	            .content(om.writeValueAsString(newPet))
+		ResultActions mvcActions = mockMvc.perform(post("/owners")
+	            .content(om.writeValueAsString(newOwner))
 	            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 	            .andDo(print())
 	            .andExpect(status().isCreated());
@@ -169,7 +159,7 @@ public class PetControllerTest {
 
 		Integer id = JsonPath.parse(response).read("$.id");
 
-        mockMvc.perform(delete("/pets/" + id ))
+        mockMvc.perform(delete("/owners/" + id ))
                  /*.andDo(print())*/
                 .andExpect(status().isOk());
     }
