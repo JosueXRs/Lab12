@@ -81,9 +81,9 @@ public class OwnerServiceImpl implements OwnerService {
 	 * @return
 	 */
 	@Override
-	public List<Owner> findByFirst_name(String first_name) {
+	public List<Owner> findByFirstName(String first_name) {
 
-		List<Owner> owners = ownerRepository.findByFirst_name(first_name);
+		List<Owner> owners = ownerRepository.findByFirstName(first_name);
 
 		owners.stream().forEach(owner -> logger.info("" + owner));
 
@@ -96,9 +96,9 @@ public class OwnerServiceImpl implements OwnerService {
 	 * @return
 	 */
 	@Override
-	public List<Owner> findByLast_name(String last_name) {
+	public List<Owner> findByLastName(String last_name) {
 
-		List<Owner> owners = ownerRepository.findByLast_name(last_name);
+		List<Owner> owners = ownerRepository.findByLastName(last_name);
 
 		owners.stream().forEach(owner -> logger.info("" + owner));
 
@@ -131,5 +131,4 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerRepository.findAll();
 	
 	}
-
 }

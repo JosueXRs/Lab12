@@ -20,9 +20,9 @@ public interface OwnerService {
 
 	Owner findById(long id) throws OwnerNotFoundException;
 
-	List<Owner> findByFirst_name(String first_name);
+	List<Owner> findByFirstName(String first_name);
 
-	List<Owner> findByLast_name(String last_name);
+	List<Owner> findByLastName(String last_name);
 
 	List<Owner> findByTelephone(String telephone);
 

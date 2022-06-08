@@ -47,7 +47,7 @@ public class OwnerServiceTest {
 		}
 		logger.info("" + owner);
 
-		assertThat(owner.getFirst_name(), is(FNAME));
+		assertThat(owner.getFirstName(), is(FNAME));
 
 	}
 
@@ -60,7 +60,7 @@ public class OwnerServiceTest {
 		String FIND_FNAME = "George";
 		int SIZE_EXPECTED = 1;
 
-		List<Owner> owners = ownerService.findByFirst_name(FIND_FNAME);
+		List<Owner> owners = ownerService.findByFirstName(FIND_FNAME);
 
 		assertThat(owners.size(), is(SIZE_EXPECTED));
 	}
@@ -72,9 +72,9 @@ public class OwnerServiceTest {
 	public void testFindOwnerByLastName() {
 
 		String FIND_LNAME = "Coleman";
-		int SIZE_EXPECTED = 2;
+		int SIZE_EXPECTED = 1;
 
-		List<Owner> owners = ownerService.findByLast_name(FIND_LNAME);
+		List<Owner> owners = ownerService.findByLastName(FIND_LNAME);
 
 		assertThat(owners.size(), is(SIZE_EXPECTED));
 	}
@@ -85,16 +85,14 @@ public class OwnerServiceTest {
 	@Test
 	public void testFindOwnerByTelephone() {
 
-		String FIND_TELEPHONE = "6085552654";
-		int SIZE_EXPECTED = 2;
+		String FIND_TELEPHONE = "6085552765";
+		int SIZE_EXPECTED = 1;
 
 		List<Owner> owners = ownerService.findByTelephone(FIND_TELEPHONE);
 
 		assertThat(owners.size(), is(SIZE_EXPECTED));
-		
 	}
 
-		
 	
 	/**
 	 *  To get ID generate , you need 
@@ -117,8 +115,8 @@ public class OwnerServiceTest {
 
 		//          ACTUAL                 , EXPECTED 
 		assertThat(ownerCreated.getId()      , notNullValue());
-		assertThat(ownerCreated.getFirst_name()    , is(OWNER_FNAME));
-		assertThat(ownerCreated.getLast_name() , is(OWNER_LNAME));
+		assertThat(ownerCreated.getFirstName()    , is(OWNER_FNAME));
+		assertThat(ownerCreated.getLastName() , is(OWNER_LNAME));
 		assertThat(ownerCreated.getTelephone()  , is(OWNER_TELEPHONE));
 
 	}
@@ -149,8 +147,8 @@ public class OwnerServiceTest {
 		create_id = ownerCreated.getId();
 
 		// Prepare data for update
-		ownerCreated.setFirst_name(UP_OWNER_FNAME);
-		ownerCreated.setLast_name(UP_OWNER_LNAME);
+		ownerCreated.setFirstName(UP_OWNER_FNAME);
+		ownerCreated.setLastName(UP_OWNER_LNAME);
 		ownerCreated.setTelephone(UP_OWNER_TELEPHONE);
 
 		// Execute update
@@ -160,8 +158,8 @@ public class OwnerServiceTest {
 		//        ACTUAL       EXPECTED
 		assertThat(create_id ,notNullValue());
 		assertThat(upgradeOwner.getId(), is(create_id));
-		assertThat(upgradeOwner.getFirst_name(), is(UP_OWNER_FNAME));
-		assertThat(upgradeOwner.getLast_name(), is(UP_OWNER_LNAME));
+		assertThat(upgradeOwner.getFirstName(), is(UP_OWNER_FNAME));
+		assertThat(upgradeOwner.getLastName(), is(UP_OWNER_LNAME));
 		assertThat(upgradeOwner.getTelephone(), is(UP_OWNER_TELEPHONE));
 	}
 
@@ -193,7 +191,5 @@ public class OwnerServiceTest {
 		} 				
 
 	}
-	
-	
-	
+		
 }
